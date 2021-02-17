@@ -23,7 +23,7 @@ public class BuiltInAssertionsTests extends HttpClientTestBase {
     public void initializeMocks() throws IOException {
         requestBody = InputOutputHelper.readContentFromFile(discoverAbsoluteFilePath("requestBody.json")).getBytes();
         responsePayload = InputOutputHelper.readContentFromFile(discoverAbsoluteFilePath("responseBooksStore.json")).getBytes();
-        endpoint = "/deserialize/some/bookstore";
+        endpoint = "/deserialize/some/pojos.bookstore";
         url = baseServerUrl + endpoint;
         configureStub(wireMockServer, responsePayload, endpoint);
     }
