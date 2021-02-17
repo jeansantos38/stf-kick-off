@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="STF_MISCELLANEOUS_TEST_SUITE">
+
+    <!--*************************************[TEST CASES AREA]*************************************-->
+    <!--Global parameter-->
+    <parameter name="optionalGlobalParameterExample" value="valueGotFromGlobalParam"/>
+
+    <test name="Misc_Test-Set">
+        <classes>
+            <class name="misc.SerializeDeserializeTests"/>
+            <class name="misc.CalendarTests"/>
+            <class name="misc.RegexTests"/>
+            <class name="misc.InputOutputTests"/>
+        </classes>
+    </test>
+</suite>

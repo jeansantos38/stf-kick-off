@@ -23,7 +23,7 @@ public class DemoParallelTests extends HttpClientTestBase {
 
         requestBody = InputOutputHelper.readContentFromFile(discoverAbsoluteFilePath("requestBody.json")).getBytes();
         responseBodyToBeUsedByMock = InputOutputHelper.readContentFromFile(discoverAbsoluteFilePath("responseBooksStore.json")).getBytes();
-        endpoint = "/deserialize/some/bookstore";
+        endpoint = "/deserialize/some/pojos.bookstore";
         url = baseServerUrl + endpoint;
         configureDelayedStub(wireMockServer, responseBodyToBeUsedByMock, endpoint);
     }

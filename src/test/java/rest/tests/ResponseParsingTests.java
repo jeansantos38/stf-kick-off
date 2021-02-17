@@ -10,9 +10,9 @@ import net.minidev.json.JSONArray;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import pojo.books.Book;
+import pojo.books.BooksStore;
 import rest.base.HttpClientTestBase;
-import rest.pojos.bookstore.Book;
-import rest.pojos.bookstore.BooksStore;
 
 import java.io.IOException;
 
@@ -44,19 +44,6 @@ public class ResponseParsingTests extends HttpClientTestBase {
         Assert.assertEquals(booksStore.store.book[3].isbn, "0-395-19395-8");
         //or
         httpDetailedResponse.assertJsonPathFromResponse(HttpDetailedResponse.Operator.EQUAL, "$['store']['book'][3]['isbn']", "0-395-19395-8");
-    }
-
-    @Test
-    @Description("Deserialize response using jsonPath api.")
-    public void deserializeToPojoTest2() throws Exception {
-        HttpDetailedResponse httpDetailedResponse = httpClient.performHttpRequest(HttpRequestMethod.POST, url, httpDetailedHeader, requestBody);
-        httpDetailedResponse.assertExpectedStatusCode(200);
-        Book book = httpDetailedResponse.deserializeJsonPathFromResponse(Book.class, "$.store.book[3]");
-        Assert.assertEquals(book.author, "J. R. R. Tolkien");
-        Assert.assertEquals(book.title, "The Lord of the Rings");
-        Assert.assertEquals(book.isbn, "0-395-19395-8");
-        //or
-        httpDetailedResponse.assertJsonPathFromResponse(HttpDetailedResponse.Operator.EQUAL, "$['store']['book'][3]['author']", "J. R. R. Tolkien");
     }
 
     @Test

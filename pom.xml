@@ -11,22 +11,22 @@
         <dependency>
             <groupId>com.github.HPInc.smart-test-framework</groupId>
             <artifactId>stf-misc</artifactId>
-            <version>v1.3.1-SNAPSHOT</version>
+            <version>v1.3.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.HPInc.smart-test-framework</groupId>
             <artifactId>stf-http-client</artifactId>
-            <version>v1.3.1-SNAPSHOT</version>
+            <version>v1.3.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.HPInc.smart-test-framework</groupId>
             <artifactId>stf-web-driver</artifactId>
-            <version>v1.3.1-SNAPSHOT</version>
+            <version>v1.3.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.HPInc.smart-test-framework</groupId>
             <artifactId>stf-desktop-automation</artifactId>
-            <version>v1.3.1-SNAPSHOT</version>
+            <version>v1.3.2-SNAPSHOT</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock-standalone -->
@@ -65,7 +65,9 @@
                 <version>2.18.1</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>testRunConfig/testRunConfig_misc-tests.xml
+                        <suiteXmlFile>testRunConfig/testRunConfig_misc_regression.xml
+                        </suiteXmlFile>
+                        <suiteXmlFile>testRunConfig/testRunConfig_rest_regression.xml
                         </suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
