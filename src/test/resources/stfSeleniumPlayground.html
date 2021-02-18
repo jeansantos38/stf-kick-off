@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+    <style>
+        #myDIV {
+          width: 100%;
+          padding: 50px 0;
+          text-align: center;
+          background-color: lightgreen;
+          margin-top: 20px;
+        }
+    </style>
+    <style>
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
+</head>
+
+<script>
+    function myFunction() {
+        document.getElementById("fName").value = "";
+        document.getElementById("lName").value = "";
+    }
+</script>
+<script>
+function myFunction2(callback) {
+
+   setTimeout(function() { var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }}, 5000);
+}
+</script>
+
+
+<body>
+<h1>Welcome HTML Selenium Playground for Smart Test Framework!</h1>
+<h2>Programming Languages</h2>
+<table>
+    <tr>
+        <th>Language</th>
+        <th>Release Year</th>
+        <th>Test</th>
+        <th>Is it boring?</th>
+    </tr>
+    <tr ondblclick="this.style.backgroundColor='red'" onclick="this.style.backgroundColor='blue'">
+        <td>Java</td>
+        <td>1995</td>
+        <td>November 28, 2017 1:45 PM</td>
+        <td>no</td>
+    </tr>
+    <tr ondblclick="this.style.backgroundColor='red'" onclick="this.style.backgroundColor='blue'">
+        <td>Pascal</td>
+        <td>1970</td>
+        <td>May 3, 2016 2:22 PM</td>
+        <td>yes</td>
+    </tr>
+    <tr ondblclick="this.style.backgroundColor='red'" onclick="this.style.backgroundColor='blue'">
+        <td>Javascript</td>
+        <td>1995</td>
+        <td>April 15, 2016 9:34 PM</td>
+        <td>yes</td>
+    </tr>
+    <tr ondblclick="this.style.backgroundColor='red'" onclick="this.style.backgroundColor='blue'">
+        <td>C#</td>
+        <td>2002</td>
+        <td>October 6, 2016 10:34 PM</td>
+        <td>no</td>
+    </tr>
+</table>
+<div>
+    <br>
+    <br>
+    <form>
+        <label id="labelFirst" for="fname">First name:</label>
+        <input type="text" id="fname" name="fname"><br><br>
+        <label id="labelLast" for="lname">Last name:</label>
+        <input type="text" id="lname" name="lname"><br><br>
+        <button onclick="myFunction()">Reset fields to default values!</button>
+    </form>
+    <p id="demo"></p>
+</div>
+<br>
+<br>
+<div>
+    <label for="stacks">Choose a stack:</label>
+    <select name="stacks" id="stacks">
+        <option value="daily">Daily</option>
+        <option value="qual">QUAL</option>
+        <option value="stg">STAGING</option>
+        <option value="prod">PROD</option>
+    </select>
+</div>
+<br>
+<br>
+<div>
+    <input type="checkbox" id="seleniumenv1" name="seleniumenv1" value="SeleniumGrid">
+    <label for="seleniumenv1"> Selenium Grid is cool</label><br>
+    <input type="checkbox" id="seleniumenv2" name="seleniumenv2" value="Moon" checked>
+    <label for="seleniumenv2"> Moon is cool</label><br>
+    <input type="checkbox" id="seleniumenv3" name="seleniumenv3" value="Zalenium">
+    <label for="seleniumenv3"> Zalenium is cool</label><br>
+</div>
+<br>
+<form>
+    <input type = "radio" name = "subject" value = "left"> Left Handed
+    <input type = "radio" name = "subject" value = "right"> Right Handed
+</form>
+<br>
+<div class="tooltip">Hover over me
+    <span class="tooltiptext">Smart Test Framework</span>
+</div>
+<br>
+<br>
+<br>
+<div>
+    <form>
+        <input type = "file" name = "fileupload" accept = "image/*" />
+    </form>
+</div>
+<br>
+<br>
+
+<div>
+    <p>Click once to show banner after 5s, click a 2nd to hide it.</p>
+    <button onclick="myFunction2()">Save data</button>
+    <div id="myDIV" style="display: none">
+        Your data was saved! Just kidding, it was trashed :P
+    </div>
+</div>
+</body>
+</html>
