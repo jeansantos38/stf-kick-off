@@ -9,7 +9,6 @@
     <test name="WebServices-Rest_Test-Set">
         <classes>
             <class name="rest.tests.BuiltInAssertionsTests"/>
-            <class name="rest.tests.DemoParallelTests"/>
             <class name="rest.tests.ResponseParsingTests"/>
         </classes>
     </test>
