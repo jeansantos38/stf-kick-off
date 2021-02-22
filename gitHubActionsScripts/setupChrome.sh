@@ -2,6 +2,8 @@
 set -ex
 
 wget https://www.dropbox.com/s/yd8w6q8jccomiev/chromedriver_linux64.zip?dl=1
+ls -la
+pwd
 unzip chromedriver_linux64.zip
 chmod 755 chromedriver
 
