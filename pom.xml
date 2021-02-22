@@ -11,30 +11,35 @@
         <dependency>
             <groupId>com.github.HPInc.smart-test-framework</groupId>
             <artifactId>stf-misc</artifactId>
-            <version>v1.3.2-SNAPSHOT</version>
+            <version>v1.3.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.HPInc.smart-test-framework</groupId>
             <artifactId>stf-http-client</artifactId>
-            <version>v1.3.2-SNAPSHOT</version>
+            <version>v1.3.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.HPInc.smart-test-framework</groupId>
             <artifactId>stf-web-driver</artifactId>
-            <version>v1.3.2-SNAPSHOT</version>
+            <version>v1.3.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.HPInc.smart-test-framework</groupId>
             <artifactId>stf-desktop-automation</artifactId>
-            <version>v1.3.2-SNAPSHOT</version>
+            <version>v1.3.3-SNAPSHOT</version>
         </dependency>
-
         <!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock-standalone -->
         <dependency>
             <groupId>com.github.tomakehurst</groupId>
             <artifactId>wiremock-standalone</artifactId>
             <version>2.23.2</version>
             <scope>test</scope>
+        </dependency>
+        <!-- This is only required due to tests in CI GithubActions https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>3.141.59</version>
         </dependency>
     </dependencies>
     <repositories>
@@ -68,6 +73,8 @@
                         <suiteXmlFile>testRunConfig/testRunConfig_misc_regression.xml
                         </suiteXmlFile>
                         <suiteXmlFile>testRunConfig/testRunConfig_rest_regression.xml
+                        </suiteXmlFile>
+                        <suiteXmlFile>testRunConfig/webUi/testRunConfig_web-ui_regression.xml
                         </suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>

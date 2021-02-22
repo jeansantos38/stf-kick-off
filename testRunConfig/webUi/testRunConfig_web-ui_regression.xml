@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="STF_HTTP-CLIENT_TEST_SUITE">
+<suite name="STF_WEB-UI_TEST_SUITE">
 
     <!--*************************************[TEST CASES AREA]*************************************-->
     <!--Global parameter-->
     <parameter name="optionalGlobalParameterExample" value="valueGotFromGlobalParam"/>
 
-    <test name="WebServices-Rest_Test-Set">
+    <test name="WebUi_Test-Set">
         <classes>
-            <class name="rest.tests.BuiltInAssertionsTests"/>
-            <class name="rest.tests.DemoParallelTests"/>
-            <class name="rest.tests.ResponseParsingTests"/>
+            <class name="selenium.tests.regular.BasicFormsUsingStfApi"/>
         </classes>
     </test>
 </suite>
