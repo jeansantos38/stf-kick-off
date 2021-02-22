@@ -32,4 +32,4 @@ jobs:
     - name: Run Http-Client tests
       run: mvn test -Dsurefire.suiteXmlFiles="testRunConfig/rest/testRunConfig_rest_regression.xml" -DnetworkInterface="eth0"  
     - name: Run Web-Ui tests
-      run: mvn test -Dsurefire.suiteXmlFiles="testRunConfig/webUi/testRunConfig_web-ui_regression.xml" -DwebdriverPath="chromedriver" -DnetworkInterface="eth0" -Dheaded="false"
+      run: mvn test -Dsurefire.suiteXmlFiles="testRunConfig/webUi/testRunConfig_web-ui_regression.xml" -DwebdriverPath="chromedriver" -DnetworkInterface="eth0" -Dheaded="false" -DseleniumDriverType="CHROME_DRIVER"
