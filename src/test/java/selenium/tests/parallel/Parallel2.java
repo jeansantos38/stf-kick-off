@@ -1,5 +1,6 @@
 package selenium.tests.parallel;
 
+import com.github.jeansantos38.stf.framework.network.NetworkHelper;
 import com.github.jeansantos38.stf.framework.webdriver.WebDriverSeleniumHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,15 +18,18 @@ public class Parallel2 extends SeleniumTestBase {
     private HtmlPlayGroundPageObject testHtmlPageObject;
 
     @BeforeClass
-    @Parameters({"seleniumHost", "browserName", "browserVersion", "vnc", "recording"})
+    @Parameters({"seleniumHost", "seleniumDriverType", "browserName", "browserVersion", "headed", "vnc", "recording", "networkInterface"})
     public void initialize(@Optional("http://localhost:4444/wd/hub") String seleniumHost,
+                           @Optional("REMOTE_SELENOID") SeleniumWebDriverType seleniumDriverType,
                            @Optional("chrome") String browserName,
                            @Optional("80.0") String browserVersion,
+                           @Optional("true") Boolean headed,
                            @Optional("true") Boolean vnc,
-                           @Optional("false") Boolean recording) throws Exception {
+                           @Optional("false") Boolean recording,
+                           @Optional("eth1") String networkInterface) throws Exception {
 
-        url = stubWebPage("192.168.0.29", 8069, urlToMock, "src/test/resources", "stfHtmlPlayground.html", 2000);
-        selenium = startBrowser(seleniumHost, browserName, browserVersion, vnc, recording);
+        url = stubWebPage(NetworkHelper.retrieveLocalIPv4Address(networkInterface), 8069, urlToMock, "src/test/resources", "stfHtmlPlayground.html", 2000);
+        selenium = startRemoteBrowser(seleniumHost, seleniumDriverType, browserName, browserVersion, headed, vnc, recording);
         testHtmlPageObject = new HtmlPlayGroundPageObject();
 
         selenium.navigate(url);

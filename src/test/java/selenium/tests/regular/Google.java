@@ -8,20 +8,22 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import selenium.base.SeleniumTestBase;
 
-import java.net.MalformedURLException;
-
 public class Google extends SeleniumTestBase {
 
     private WebDriverSeleniumHelper selenium;
 
     @BeforeClass
-    @Parameters({"seleniumHost", "browserName", "browserVersion", "vnc", "recording"})
+    @Parameters({"seleniumHost", "seleniumDriverType", "browserName", "browserVersion", "headed", "vnc", "recording", "networkInterface"})
     public void initialize(@Optional("http://localhost:4444/wd/hub") String seleniumHost,
+                           @Optional("REMOTE_SELENOID") SeleniumWebDriverType seleniumDriverType,
                            @Optional("chrome") String browserName,
                            @Optional("80.0") String browserVersion,
+                           @Optional("true") Boolean headed,
                            @Optional("true") Boolean vnc,
-                           @Optional("false") Boolean recording) throws MalformedURLException {
-        selenium = startBrowser(seleniumHost, browserName, browserVersion, vnc, recording);
+                           @Optional("false") Boolean recording,
+                           @Optional("eth1") String networkInterface) throws Exception {
+
+        selenium = startRemoteBrowser(seleniumHost, seleniumDriverType, browserName, browserVersion, headed, vnc, recording);
     }
 
     @AfterClass
