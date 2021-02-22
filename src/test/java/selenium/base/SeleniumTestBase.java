@@ -3,11 +3,13 @@ package selenium.base;
 import com.github.jeansantos38.stf.framework.logger.TestLog;
 import com.github.jeansantos38.stf.framework.webdriver.WebDriverSeleniumHelper;
 import com.github.tomakehurst.wiremock.WireMockServer;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import rest.base.MainTestBase;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -15,29 +17,31 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 
 public class SeleniumTestBase extends MainTestBase {
 
-    protected void endSession(WebDriverSeleniumHelper webDriverSeleniumHelper) {
-        webDriverSeleniumHelper.endSeleniumWebdriverUsage();
-    }
-
     private WireMockServer wireMockServer;
 
-    protected WebDriverSeleniumHelper startBrowser(
+    protected WebDriverSeleniumHelper startRemoteBrowser(
             String seleniumHost,
+            SeleniumWebDriverType webDriverType,
             String browserName,
             String browserVersion,
+            boolean headed,
             boolean vnc,
-            boolean recording) throws MalformedURLException {
-        return startBrowser("", "", seleniumHost, browserName, browserVersion, vnc, recording);
+            boolean recording) throws Exception {
+        return startRemoteBrowser("", "", seleniumHost, webDriverType, browserName, browserVersion, headed, vnc, recording);
     }
 
-    protected WebDriverSeleniumHelper startBrowser(
+    protected WebDriverSeleniumHelper startRemoteBrowser(
             String remoteWebDriverProxy,
             String remoteWebDriverProxyPort,
             String seleniumHost,
+            SeleniumWebDriverType webDriverType,
             String browserName,
             String browserVersion,
+            boolean headed,
             boolean enableVNC,
-            boolean enableRecording) throws MalformedURLException {
+            boolean enableRecording) throws Exception {
+        WebDriver driver;
+
         if (!remoteWebDriverProxy.isEmpty() && !remoteWebDriverProxyPort.isEmpty()) {
             System.getProperties().put("http.proxyHost", remoteWebDriverProxy);
             System.getProperties().put("http.proxyPort", remoteWebDriverProxyPort);
@@ -48,14 +52,41 @@ public class SeleniumTestBase extends MainTestBase {
         capabilities.setBrowserName(browserName);
         capabilities.setVersion(browserVersion);
         //If not selenoid/moon grid solution, do not set it even to false, might crash regular selenium grid
-        if (enableRecording || enableVNC) {
+        if (webDriverType == SeleniumWebDriverType.REMOTE_SELENOID) {
             capabilities.setCapability("enableVNC", enableVNC);
             capabilities.setCapability("enableVideo", enableRecording);
         }
-        RemoteWebDriver driver = new RemoteWebDriver(
-                URI.create(seleniumHost).toURL(),
-                capabilities
-        );
+        switch (webDriverType) {
+            case REMOTE_SELENIUM_GRID:
+            case REMOTE_SELENOID:
+                driver = new RemoteWebDriver(URI.create(seleniumHost).toURL(), capabilities);
+                break;
+            default:
+                throw new Exception(String.format("The local webdriver %s is not supported for remote selenium server!", webDriverType.toString()));
+        }
+        WebDriverSeleniumHelper webDriverSeleniumHelper = new WebDriverSeleniumHelper(30, new TestLog());
+        webDriverSeleniumHelper.setSeleniumDriver(driver);
+        return webDriverSeleniumHelper;
+    }
+
+    protected WebDriverSeleniumHelper startLocalBrowser(
+            SeleniumWebDriverType webDriverType,
+            String webdriverPath,
+            boolean headed) throws Exception {
+        WebDriver driver;
+        switch (webDriverType) {
+            case CHROME_DRIVER:
+                System.setProperty("webdriver.chrome.driver", webdriverPath);
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
+                if (!headed)
+                    options.addArguments("--headless");
+                driver = new ChromeDriver(options);
+                break;
+            default:
+                throw new Exception(String.format("The webdriver type %s is not supported!", webDriverType.toString()));
+        }
         WebDriverSeleniumHelper webDriverSeleniumHelper = new WebDriverSeleniumHelper(30, new TestLog());
         webDriverSeleniumHelper.setSeleniumDriver(driver);
         return webDriverSeleniumHelper;
@@ -84,5 +115,9 @@ public class SeleniumTestBase extends MainTestBase {
         if (wireMockServer != null && wireMockServer.isRunning()) {
             wireMockServer.stop();
         }
+    }
+
+    protected enum SeleniumWebDriverType {
+        REMOTE_SELENIUM_GRID, REMOTE_SELENOID, CHROME_DRIVER
     }
 }
