@@ -1,5 +1,6 @@
 package selenium.tests.regular;
 
+import com.github.jeansantos38.stf.framework.network.NetworkHelper;
 import com.github.jeansantos38.stf.framework.webdriver.WebDriverSeleniumHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,15 +18,25 @@ public class BasicFormsUsingStfApi extends SeleniumTestBase {
     private HtmlPlayGroundPageObject testHtmlPageObject;
 
     @BeforeClass
-    @Parameters({"seleniumHost", "browserName", "browserVersion", "vnc", "recording"})
+    @Parameters({"seleniumHost", "seleniumDriverType", "browserName", "browserVersion", "headed", "vnc", "recording", "networkInterface", "webdriverPath"})
     public void initialize(@Optional("http://localhost:4444/wd/hub") String seleniumHost,
+                           @Optional("REMOTE_SELENOID") SeleniumWebDriverType seleniumDriverType,
                            @Optional("chrome") String browserName,
                            @Optional("80.0") String browserVersion,
+                           @Optional("true") Boolean headed,
                            @Optional("true") Boolean vnc,
-                           @Optional("false") Boolean recording) throws Exception {
+                           @Optional("false") Boolean recording,
+                           @Optional("eth1") String networkInterface,
+                           @Optional("C:\\Users\\giacomin\\chromedriver_win32\\chromedriver.exe") String webdriverPath) throws Exception {
 
-        url = stubWebPage("192.168.0.29", 8089, urlToMock, "src/test/resources", "stfHtmlPlayground.html", 2000);
-        selenium = startBrowser(seleniumHost, browserName, browserVersion, vnc, recording);
+        url = stubWebPage(NetworkHelper.retrieveLocalIPv4Address(networkInterface), 8089, urlToMock, "src/test/resources", "stfHtmlPlayground.html", 2000);
+
+        if (webdriverPath.isEmpty()) {
+            selenium = startRemoteBrowser(seleniumHost, seleniumDriverType, browserName, browserVersion, headed, vnc, recording);
+        } else {
+            selenium = startLocalBrowser(seleniumDriverType, webdriverPath, headed);
+        }
+
         testHtmlPageObject = new HtmlPlayGroundPageObject();
 
         selenium.navigate(url);
