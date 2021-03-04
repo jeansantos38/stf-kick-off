@@ -11,22 +11,22 @@
         <dependency>
             <groupId>com.github.HPInc.smart-test-framework</groupId>
             <artifactId>stf-misc</artifactId>
-            <version>v1.3.3-SNAPSHOT</version>
+            <version>v1.3.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.HPInc.smart-test-framework</groupId>
             <artifactId>stf-http-client</artifactId>
-            <version>v1.3.3-SNAPSHOT</version>
+            <version>v1.3.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.HPInc.smart-test-framework</groupId>
             <artifactId>stf-web-driver</artifactId>
-            <version>v1.3.3-SNAPSHOT</version>
+            <version>v1.3.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.HPInc.smart-test-framework</groupId>
             <artifactId>stf-desktop-automation</artifactId>
-            <version>v1.3.3-SNAPSHOT</version>
+            <version>v1.3.4-SNAPSHOT</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock-standalone -->
         <dependency>
