@@ -6,8 +6,8 @@
 # *~
 *target/*
 *.idea/*
-/.idea/*
 *allure-results/*
 *.iml
-*/test-output/*
+*test-output/*
 *.db
+*.iml

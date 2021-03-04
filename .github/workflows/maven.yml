@@ -1,0 +1,35 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+        
+    - name:  Install Google Chrome # Using shell script to install Google Chrome
+      run:   |
+        chmod +x gitHubActionsScripts/setupChrome.sh
+        ./gitHubActionsScripts/setupChrome.sh
+    - name: Build with Maven
+      run: mvn clean install -DskipTests
+    - name: Run General Helpers tests
+      run: mvn test -Dsurefire.suiteXmlFiles="testRunConfig/misc/testRunConfig_misc_regression.xml"
+    - name: Run Http-Client tests
+      run: mvn test -Dsurefire.suiteXmlFiles="testRunConfig/rest/testRunConfig_rest_regression.xml" -DnetworkInterface="eth0"  
+    - name: Run Web-Ui tests
+      run: mvn test -Dsurefire.suiteXmlFiles="testRunConfig/webUi/testRunConfig_web-ui_regression.xml" -DwebdriverPath="chromedriver" -DnetworkInterface="eth0" -Dheaded="false" -DseleniumDriverType="CHROME_DRIVER"

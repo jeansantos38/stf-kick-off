@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="STF_WEB-UI_TEST_SUITE" parallel="tests" thread-count="5">
+
+    <!--*************************************[TEST CASES AREA]*************************************-->
+    <!--Global parameter-->
+    <parameter name="optionalGlobalParameterExample" value="valueGotFromGlobalParam"/>
+
+    <test name="Set1" group-by-instances="true">
+        <classes>
+            <class name="selenium.tests.parallel.Parallel1"/>
+        </classes>
+    </test>
+    <test name="Set2" group-by-instances="true">
+        <classes>
+            <class name="selenium.tests.parallel.Parallel2"/>
+        </classes>
+    </test>
+    <test name="Set3" group-by-instances="true">
+        <classes>
+            <class name="selenium.tests.parallel.Parallel3"/>
+        </classes>
+    </test>
+    <test name="Set4" group-by-instances="true">
+        <classes>
+            <class name="selenium.tests.parallel.Parallel4"/>
+        </classes>
+    </test>
+    <test name="Set5" group-by-instances="true">
+        <classes>
+            <class name="selenium.tests.parallel.Parallel5"/>
+        </classes>
+    </test>
+</suite>
