@@ -4,10 +4,10 @@
 # exclude patterns (uncomment them if you want to use them):
 # *.[oa]
 # *~
-target/*
-.idea/*
-allure-results/*
+*target/*
+*.idea/*
+*allure-results/*
 *.iml
-test-output/*
-SmartTestFramework/*
+*test-output/*
 *.db
+*.iml
