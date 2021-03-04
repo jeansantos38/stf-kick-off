@@ -20,13 +20,12 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-        
+    - name: Build with Maven
+      run: mvn clean install -DskipTests
     - name:  Install Google Chrome # Using shell script to install Google Chrome
       run:   |
         chmod +x gitHubActionsScripts/setupChrome.sh
-        ./gitHubActionsScripts/setupChrome.sh
-    - name: Build with Maven
-      run: mvn clean install -DskipTests
+        ./gitHubActionsScripts/setupChrome.sh    
     - name: Run General Helpers tests
       run: mvn test -Dsurefire.suiteXmlFiles="testRunConfig/misc/testRunConfig_misc_regression.xml"
     - name: Run Http-Client tests
