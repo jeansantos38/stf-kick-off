@@ -10,7 +10,7 @@
 
     <test name="Ui-Automation-Local_Test-Set">
         <classes>
-            <class name="desktop.UiAutomationGeneric"/>
+            <class name="desktop.UiAutomationDesktopApp"/>
         </classes>
     </test>
 </suite>

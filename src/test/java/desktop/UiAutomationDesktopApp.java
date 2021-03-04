@@ -23,16 +23,7 @@ public class UiAutomationDesktopApp extends UiAutomationTestBase {
     boolean popUpDuringTest;
 
 
-    @Parameters({"_isVncScreen",
-            "_vmManagerBinPath",
-            "_vmName",
-            "_vmSnapshotName",
-            "_vncServerIpAddress",
-            "_vncServerPort",
-            "_vncServerPassword",
-            "_connectionTimeoutSec",
-            "_operationTimeoutMs",
-            "_popUpDuringTest"})
+    @Parameters({"_popUpDuringTest"})
     @BeforeClass
     public void beforeClass(@Optional("false") Boolean _popUpDuringTest) throws Exception {
         navigator = discoverAbsoluteFilePath("winApp/_navigator_STF_Win_Demo-App.yml");
@@ -40,25 +31,13 @@ public class UiAutomationDesktopApp extends UiAutomationTestBase {
 
         UiVisualFeedback uiVisualFeedback = new UiVisualFeedback("green", "red", "blue", 0.2);
         uiVisualFeedback.setEnableHighlight(true);
-
-        if (!_isVncScreen) {
-            uiAutomationDriver = new UiAutomationDriver(new Screen(), testLog, waitHelper, System.getProperty("user.home") + "/STF_Screenshots", true, 500, 500, uiVisualFeedback);
-            startWinDemoApp();
-        } else {
-            manageVm("Starting test VM!", startVmScript, _vmManagerBinPath, _vmName, _vmSnapshotName);
-            VNCScreen screen = UiAutomationUtils.connectToVncScreen(_vncServerIpAddress, _vncServerPort, _vncServerPassword, _connectionTimeoutSec, _operationTimeoutMs, 3);
-            uiAutomationDriver = new UiAutomationDriver(screen, testLog, waitHelper, System.getProperty("user.home") + "/STF_Screenshots", true, uiVisualFeedback);
-            uiAutomationDriver.buildPatternFromNavigator(navigator, "desktop", "stfIcon").doubleClick();
-        }
+        uiAutomationDriver = new UiAutomationDriver(new Screen(), testLog, waitHelper, System.getProperty("user.home") + "/STF_Screenshots", true, 500, 500, uiVisualFeedback);
+        startWinDemoApp();
     }
 
     @AfterClass
     public void cleanup() throws Exception {
-        if (!isVncScreen) {
-            endWinDemoApp();
-        } else {
-            manageVm("Ending test VM!", endVmScript, vmManagerBinPath, vmName, vmSnapshotName);
-        }
+        endWinDemoApp();
     }
 
     @Test
@@ -97,5 +76,6 @@ public class UiAutomationDesktopApp extends UiAutomationTestBase {
 
         uiAutomationDriver.buildPatternFromNavigator(navigator, "mainScreen", "x_close_btn").click();
 
+        uiAutomationDriver.buildPatternFromNavigator(navigator, "mainScreen", "innerIco").waitVanishes(5);
     }
 }
